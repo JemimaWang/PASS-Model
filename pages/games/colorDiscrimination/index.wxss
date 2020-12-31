@@ -50,15 +50,6 @@
   font-weight: 200;
   border-radius: 100rpx;
 }
-.progress{
-  width: max-content;
-}
-canvas{
-  height: 100rpx;
-  width: 600rpx;
-  margin: 0 auto;
-  
-}
 .question{
   margin: 0 auto;
   margin-top: 100rpx;
@@ -143,4 +134,27 @@ canvas{
 
 ._img {
   height:200px;
+}
+
+.timerow{
+  padding-top: 50rpx;
+  height: fit-content;
+  width: 550rpx;
+  margin: 0 auto;
+  align-items: center;
+  overflow: hidden;
+  font-size: 40rpx;
+}
+.progress_img {
+  width: 40rpx;
+  height: 40rpx;
+  position: fixed;
+  background-size: 100% 100%;
+  margin-top: -10rpx;
+  transform: rotate(10deg);
+}
+.trow {
+  height: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
 }

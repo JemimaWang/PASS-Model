@@ -28,7 +28,6 @@ Page({
     checkBtn:null,
 
     wordShow:true,
-    length:570,
 
     rightRate:0,//正确率
     score:0,//分数
@@ -39,6 +38,9 @@ Page({
 
     testFlag:0,
     score_show:false,
+
+    progressWidth:0,
+    marginLeft:-10
 
 
   },
@@ -103,40 +105,23 @@ Page({
     },1000)
   },
   drawActive:function(){
-    //设置定时器，一百毫秒执行一次
-    //一百毫秒执行一次，要在mTime时间内画一条线
-    //比如100000ms，要进行100000/100=1000次画,1000次画满（700-50)/1000
     var this2 = this;
+    var progressWidth = this.data.progressWidth;
     var timer = setInterval(function(){
-      //现在的长度/原来的长度
-      //(this2.data.time*1000-this2.data.mTime)/(this2.data.time*1000)
-      var length = 570*(this2.data.mTime)/(this2.data.time*1000);
-      var currentTime = this2.data.mTime-100;
-      this2.setData({
-        mTime:currentTime
-      });
-      if(length>0){
-        var lineWidth = 10/this2.data.rate;//px
-        var ctx = wx.createCanvasContext('progress_active');//不需要'#'
-        ctx.setLineCap('butt');
-        ctx.setLineWidth(lineWidth);
-        ctx.setStrokeStyle('#ffffff');
-        ctx.beginPath();
-        ctx.moveTo(0, 80/this2.data.rate);
-        ctx.lineTo(length/this2.data.rate, 80/this2.data.rate);
-        ctx.stroke();
-        ctx.draw();
-        this2.setData({
-          length:length
-        })
-      }else{
+      if(progressWidth==100){
         clearInterval(this2.data.timer);
         this2.getScore();
         this2.getGrade();
         this2.showGrade();
+      }else{
+        progressWidth++;
+        this2.setData({
+          progressWidth:progressWidth,
+          marginLeft:550/100*progressWidth-10
+        })
       }
-    },100);
-    this2.setData({
+    },1000);
+    this.setData({
       timer:timer
     })
   },
@@ -200,7 +185,7 @@ Page({
     }
   },
   getScore:function(){
-    var useTime = (this.data.time*1000-this.data.mTime)/1000
+    var useTime = this.data.progressWidth
     var group = this.data.colorGroup;
     var answer = this.data.answerArr;
     var score = 0;
@@ -212,8 +197,8 @@ Page({
       }
     }
     console.log(useTime);
-    score = 0.1*score*(this.data.time-useTime+20)/this.data.time*100;
-    console.log(score);
+    score = score*(100-useTime+20)/10;
+    console.log("颜色判别分数"+score);
     this.setData({
       score:score
     })
@@ -264,6 +249,7 @@ Page({
     setTimeout(() => this.exit(), 2500);
   },
   exit:function(){//点击确定后
+    clearInterval(this.data.timer);
     //跳转到游戏界面
     if(this.data.testFlag==0)
     {

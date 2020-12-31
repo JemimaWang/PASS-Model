@@ -34,11 +34,13 @@
 </view>
 <view hidden="{{!startGame}}" class="color-game" style="height:{{gameHeight}}rpx">
   <image class="bgimg" src="https://qbkeass.cn/images/wallpaper/game-wp2.png" mode="aspectFill"></image>
-  <view class="progess">
-    <canvas class="progress_active" canvas-id="progress_active">
-      <image src="https://qbkeass.cn/images/tabbar/test-chosen.png" style="width:40rpx;height:40rpx;margin-top:60rpx;margin-left:{{length}}rpx" ></image>
-    </canvas>
-  </view>
+  <view class="timerow">
+        <image class="progress_img"
+        src="https://qbkeass.cn/images/tabbar/test-chosen.png" 
+        mode="aspectFill"
+        style="margin-left:{{marginLeft}}rpx" ></image>
+        <view class="trow" style="width:{{progressWidth}}%"></view>
+    </view>
   <view class="board">
     <view class="game-box">
       <view class="question">第{{checkpoint+1}}关</view>
