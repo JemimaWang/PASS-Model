@@ -16,7 +16,6 @@ Page({
     gameHeight: '0',
 
     time:'100',//限定时间100s
-    mTime:100000,//以毫秒为单位
     timer:null,
 
     checkpoint:0,
